@@ -1,13 +1,13 @@
 /**
  * @description Provides the YUI with DHTML form elements
- * @module DHTMLForms
+ * @module dhtmlforms
  * @version 0.1
  * @namespace YAHOO
  * @requires yahoo, dom, event
 */
 /**
 * @description Provides the YUI with DHTML form elements
-* @class DHTMLForms.
+* @class DHTMLForms
 */
 YAHOO.DHTMLForms = function() {
     return {
