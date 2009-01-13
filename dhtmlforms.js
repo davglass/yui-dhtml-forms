@@ -1,14 +1,13 @@
 /**
-* @fileoverview Provides the YUI with DHTML form elements
-* @author Dav Glass <dav.glass@yahoo.com>
-* @version 0.1 
-* @class Provides the YUI with DHTML form elements.
-* @constructor
-* @requires YAHOO.util.Dom
-* @requires YAHOO.util.Anim
-* @requires YAHOO.util.Event
-* @requires YAHOO.widget.Overlay
-* @requires YAHOO.Tools
+ * @description Provides the YUI with DHTML form elements
+ * @module DHTMLForms
+ * @version 0.1
+ * @namespace YAHOO
+ * @requires yahoo, dom, event
+*/
+/**
+* @description Provides the YUI with DHTML form elements
+* @class DHTMLForms.
 */
 YAHOO.DHTMLForms = function() {
     return {
@@ -25,8 +24,8 @@ YAHOO.DHTMLForms = function() {
     }
 }();
 /**
-* @constructor
 * DHTML select box.
+* @class SelectBox
 * @param {String/HTMLElement} elmName HTML element to convert to DHTML
 * @param {Object} config Options to pass (not implimented yet)
 * @return Object reference
@@ -69,10 +68,10 @@ YAHOO.DHTMLForms.SelectBox = function(elmName, config) {
 }
 /**
 * Renders the Select Box.
+* @method render
 */
 
 YAHOO.DHTMLForms.SelectBox.prototype.render = function() {
-    console.log('Render: ' + this.element);
     this.element._rendered = true;
     this.id = (YAHOO.DHTMLForms.selects.length);
     YAHOO.DHTMLForms.selects[YAHOO.DHTMLForms.selects.length] = this;
@@ -81,10 +80,6 @@ YAHOO.DHTMLForms.SelectBox.prototype.render = function() {
     this.topcontid = 'yui_' + this.element.id;
     this.topid = 'yui_top_' + this.element.id;
     this.menuid = 'yui_menu_' + this.element.id;
-    console.log('this.wrapperid: ' + this.wrapperid);
-    console.log('this.topcontid: ' + this.topcontid);
-    console.log('this.topid: ' + this.topid);
-    console.log('this.menuid: ' + this.menuid);
     var sel = this.element.options.selectedIndex;
     var selValue = this.element.options[this.element.options.selectedIndex].innerHTML;
 
@@ -134,6 +129,7 @@ YAHOO.DHTMLForms.SelectBox.prototype.render = function() {
 }
 /**
 * Destroys the element.
+* @method destroy
 */
 YAHOO.DHTMLForms.SelectBox.prototype.destroy = function() {
     if (this.element._rendered) {
@@ -146,6 +142,7 @@ YAHOO.DHTMLForms.SelectBox.prototype.destroy = function() {
 }
 /**
 * Throws an error message for this field 
+* @method drawError
 */
 YAHOO.DHTMLForms.SelectBox.prototype.drawError = function(str) {
     console.log('drawError: ' + str);
@@ -154,6 +151,7 @@ YAHOO.DHTMLForms.SelectBox.prototype.drawError = function(str) {
 }
 /**
 * Clears the error message for this field 
+* @method clearError
 */
 YAHOO.DHTMLForms.SelectBox.prototype.clearError = function() {
     $D.removeClass([this.element, this.topcontid], 'yui_error');
@@ -161,6 +159,7 @@ YAHOO.DHTMLForms.SelectBox.prototype.clearError = function() {
 }
 /**
 * Menu Activation
+* @method activate
 */
 YAHOO.DHTMLForms.SelectBox.prototype.activate = function(ev) {
     console.log('Activate..' + $D.getStyle(this.menuid, 'height'));
@@ -189,6 +188,7 @@ YAHOO.DHTMLForms.SelectBox.prototype.activate = function(ev) {
 }
 /**
 * Menu Item Select
+* @method select
 */
 YAHOO.DHTMLForms.SelectBox.prototype.select = function(ev, tar) {
     var tar = ((!ev) ? tar : $E.getTarget(ev));
@@ -210,6 +210,7 @@ YAHOO.DHTMLForms.SelectBox.prototype.select = function(ev, tar) {
 }
 /**
 * Handle KeyPress
+* @method _keyPress
 * @private
 */
 YAHOO.DHTMLForms.SelectBox.prototype._keyPress = function(ev) {
@@ -244,6 +245,7 @@ YAHOO.DHTMLForms.SelectBox.prototype._keyPress = function(ev) {
 }
 /**
 * Handle Move Element
+* @method _selectMove
 * @private
 */
 YAHOO.DHTMLForms.SelectBox.prototype._selectMove = function(dir) {
@@ -282,8 +284,8 @@ YAHOO.DHTMLForms.SelectBox.prototype._selectMove = function(dir) {
     }
 }
 /**
-* @constructor
 * DHTML Editable text input/text area.
+* @class TextInput
 * @param {String/HTMLElement} elmName HTML element to convert to DHTML
 * @param {String} eventType The event to trigger the edit [click (default), dblclick]
 * @return Object reference
@@ -298,22 +300,22 @@ YAHOO.DHTMLForms.TextInput = function(elmName, eventType) {
     if (this.fieldType == 'input') {
         this.fieldType = this.element.getAttribute('type').toLowerCase()
     }
-    /**
+    /*
     * Custom Event
     * @type Object
     */
     this.onBlur = new YAHOO.util.CustomEvent('onblur', this);
-    /**
+    /*
     * Custom Event
     * @type Object
     */
     this.onFocus = new YAHOO.util.CustomEvent('onfocus', this);
-    /**
+    /*
     * Custom Event
     * @type Object
     */
     this.onDestroy = new YAHOO.util.CustomEvent('ondestroy', this);
-    /**
+    /*
     * Custom Event
     * @type Object
     */
@@ -321,6 +323,7 @@ YAHOO.DHTMLForms.TextInput = function(elmName, eventType) {
 }
 /**
 * Render the DHTML Element
+* @method render
 */
 YAHOO.DHTMLForms.TextInput.prototype.render = function() {
     this.element._rendered = true;
@@ -359,6 +362,7 @@ YAHOO.DHTMLForms.TextInput.prototype.render = function() {
 }
 /**
 * Destroys the Element
+* @method destroy
 */
 YAHOO.DHTMLForms.TextInput.prototype.destroy = function() {
     if (this.element._rendered) {
@@ -372,6 +376,7 @@ YAHOO.DHTMLForms.TextInput.prototype.destroy = function() {
 }
 /**
 * Throws an error message for this field 
+* @method drawError
 */
 YAHOO.DHTMLForms.TextInput.prototype.drawError = function(str) {
     console.log('drawError: ' + str);
@@ -380,6 +385,7 @@ YAHOO.DHTMLForms.TextInput.prototype.drawError = function(str) {
 }
 /**
 * Clears the error message for this field 
+* @method clearError
 */
 YAHOO.DHTMLForms.TextInput.prototype.clearError = function() {
     $D.removeClass([this.element, this.topcontid], 'yui_error');
@@ -387,6 +393,7 @@ YAHOO.DHTMLForms.TextInput.prototype.clearError = function() {
 }
 /**
 * Handle Click
+* @method _handleClick
 * @private
 */
 YAHOO.DHTMLForms.TextInput.prototype._handleClick = function(ev) {
@@ -401,6 +408,7 @@ YAHOO.DHTMLForms.TextInput.prototype._handleClick = function(ev) {
 /**
 * Fixes the data. Text/Password Inputs have double quotes removed (")<br>
 * Password fields update the container with (*) instead of the content of the input
+* @method _fixData
 * @private
 */
 YAHOO.DHTMLForms.TextInput.prototype._fixData = function() {
@@ -420,6 +428,7 @@ YAHOO.DHTMLForms.TextInput.prototype._fixData = function() {
 }
 /**
 * Handle blur event
+* @method _handleBlur
 * @private
 */
 YAHOO.DHTMLForms.TextInput.prototype._handleBlur = function(ev) {
@@ -430,8 +439,8 @@ YAHOO.DHTMLForms.TextInput.prototype._handleBlur = function(ev) {
     $D.setStyle(this.element, 'visibility', 'hidden');
 }
 /**
-* @constructor
 * DHTML Check Box.
+* @class CheckBox
 * @param {String/HTMLElement} elmName HTML element to convert to DHTML
 * @return Object reference
 * @type Object
@@ -441,12 +450,12 @@ YAHOO.DHTMLForms.CheckBox = function(elmName) {
     };
     this.element = $(elmName);
     this.fieldType = 'checkbox';
-    /**
+    /*
     * Custom Event
     * @type Object
     */
     this.onFocus = new YAHOO.util.CustomEvent('onfocus', this);
-    /**
+    /*
     * Custom Event
     * @type Object
     */
@@ -454,6 +463,7 @@ YAHOO.DHTMLForms.CheckBox = function(elmName) {
 }
 /**
 * Render the checkbox
+* @method render
 */
 YAHOO.DHTMLForms.CheckBox.prototype.render = function() {
     this.element._rendered = true;
@@ -483,6 +493,7 @@ YAHOO.DHTMLForms.CheckBox.prototype.render = function() {
 }
 /**
 * Destroy the checkbox
+* @method destroy
 */
 
 YAHOO.DHTMLForms.CheckBox.prototype.destroy = function() {
@@ -496,6 +507,7 @@ YAHOO.DHTMLForms.CheckBox.prototype.destroy = function() {
 }
 /**
 * Handle click event
+* @method _handleClick
 * @private
 */
 YAHOO.DHTMLForms.CheckBox.prototype._handleClick = function(ev) {
@@ -511,8 +523,8 @@ YAHOO.DHTMLForms.CheckBox.prototype._handleClick = function(ev) {
     }
 }
 /**
-* @constructor
 * DHTML Radio Buttons.
+* @class RadioButtons
 * @param {Array} elmArr An array of HTML elements to convert to DHTML
 * @return Object reference
 * @type Object
@@ -525,12 +537,12 @@ YAHOO.DHTMLForms.RadioButtons = function(elmArr) {
     this.elements = $(elmArr);
     this.element = {};
     this.topcontid = [];
-    /**
+    /*
     * Custom Event
     * @type Object
     */
     this.onFocus = new YAHOO.util.CustomEvent('onfocus', this);
-    /**
+    /*
     * Custom Event
     * @type Object
     */
@@ -538,6 +550,7 @@ YAHOO.DHTMLForms.RadioButtons = function(elmArr) {
 }
 /**
 * Render the Radio Buttons
+* @method render
 */
 YAHOO.DHTMLForms.RadioButtons.prototype.render = function() {
     console.log('RadioButtons.render(): ' + this.elements);
@@ -570,6 +583,7 @@ YAHOO.DHTMLForms.RadioButtons.prototype.render = function() {
 }
 /**
 * Destroy the Radio Buttons
+* @method destroy
 */
 YAHOO.DHTMLForms.RadioButtons.prototype.destroy = function() {
     for (var i = 0; i < this.config.container.length; i++) {
@@ -587,6 +601,7 @@ YAHOO.DHTMLForms.RadioButtons.prototype.destroy = function() {
 }
 /**
 * Handle click event
+* @method _handleClick
 * @private
 */
 YAHOO.DHTMLForms.RadioButtons.prototype._handleClick = function(ev) {
@@ -605,8 +620,8 @@ YAHOO.DHTMLForms.RadioButtons.prototype._handleClick = function(ev) {
     }
 }
 /**
-* @constructor
 * Convert all elements of the Form to DHTML Elements.
+* @class Form
 * @param {String/HTMLElement} elmName HTML element of the form to convert to DHTML
 * @return Array of Object references
 * @type Array
@@ -625,6 +640,7 @@ YAHOO.DHTMLForms.Form = function(elmName) {
 }
 /**
 * Renders all of the form elements
+* @method render
 */
 YAHOO.DHTMLForms.Form.prototype.render = function() {
     console.log('Form.render(): ' + this.element.id);
@@ -636,6 +652,7 @@ YAHOO.DHTMLForms.Form.prototype.render = function() {
 }
 /**
 * Renders a form object by type
+* @method _renderType
 * @private
 */
 YAHOO.DHTMLForms.Form.prototype._renderType = function(elType) {
@@ -651,6 +668,7 @@ YAHOO.DHTMLForms.Form.prototype._renderType = function(elType) {
 }
 /**
 * Renders all Select Boxes in the form
+* @method renderSelectBoxes
 */
 YAHOO.DHTMLForms.Form.prototype.renderSelectBoxes = function() {
     console.log('Form.renderSelectBoxes()');
@@ -658,6 +676,7 @@ YAHOO.DHTMLForms.Form.prototype.renderSelectBoxes = function() {
 }
 /**
 * Renders all CheckBoxes in the form
+* @method renderCheckBoxes
 */
 YAHOO.DHTMLForms.Form.prototype.renderCheckBoxes = function() {
     console.log('Form.renderCheckBoxes()');
@@ -665,6 +684,7 @@ YAHOO.DHTMLForms.Form.prototype.renderCheckBoxes = function() {
 }
 /**
 * Renders all Radio Buttons in the form
+* @method renderRadioButtons
 */
 YAHOO.DHTMLForms.Form.prototype.renderRadioButtons = function() {
     console.log('Form.renderRadioButtons()');
@@ -672,6 +692,7 @@ YAHOO.DHTMLForms.Form.prototype.renderRadioButtons = function() {
 }
 /**
 * Renders all Text Inputs in the form
+* @method renderTextInputs
 */
 YAHOO.DHTMLForms.Form.prototype.renderTextInputs = function() {
     console.log('Form.renderTextInputs()');
@@ -681,6 +702,7 @@ YAHOO.DHTMLForms.Form.prototype.renderTextInputs = function() {
 }
 /**
 * Renders all Text Inputs (type TEXT) in the form
+* @method renderTextInputsOnly
 */
 YAHOO.DHTMLForms.Form.prototype.renderTextInputsOnly = function() {
     console.log('Form.renderTextInputsOnly()');
@@ -688,6 +710,7 @@ YAHOO.DHTMLForms.Form.prototype.renderTextInputsOnly = function() {
 }
 /**
 * Renders all Text Inputs (type TEXTAREA) in the form
+* @method renderTextAreas
 */
 YAHOO.DHTMLForms.Form.prototype.renderTextAreas = function() {
     console.log('Form.renderTextAreas()');
@@ -695,6 +718,7 @@ YAHOO.DHTMLForms.Form.prototype.renderTextAreas = function() {
 }
 /**
 * Renders all Text Inputs (type PASSWORD) in the form
+* @method renderPasswords
 */
 YAHOO.DHTMLForms.Form.prototype.renderPasswords = function() {
     console.log('Form.renderPasswords()');
@@ -702,6 +726,7 @@ YAHOO.DHTMLForms.Form.prototype.renderPasswords = function() {
 }
 /**
 * Destroys all elements of the form
+* @method destroy
 */
 YAHOO.DHTMLForms.Form.prototype.destroy = function() {
     for (var i = 0; i < this.config.fields.length; i++) {
@@ -711,6 +736,7 @@ YAHOO.DHTMLForms.Form.prototype.destroy = function() {
 }
 /**
 * Detroys form objects by type
+* @method _destroyType
 * @private
 */
 YAHOO.DHTMLForms.Form.prototype._destroyType = function(elType) {
@@ -724,6 +750,7 @@ YAHOO.DHTMLForms.Form.prototype._destroyType = function(elType) {
 }
 /**
 * Destroys all Select Boxes in the form
+* @method destroySelectBoxes
 */
 YAHOO.DHTMLForms.Form.prototype.destroySelectBoxes = function() {
     console.log('Form.destroySelectBoxes()');
@@ -731,12 +758,14 @@ YAHOO.DHTMLForms.Form.prototype.destroySelectBoxes = function() {
 }
 /**
 * Destroys all CheckBoxes in the form
+* @method destroyCheckBoxes
 */
 YAHOO.DHTMLForms.Form.prototype.destroyCheckBoxes = function() {
     console.log('Form.destroyCheckBoxes()');
     this._destroyType('checkbox');
 }
 /**
+* @methods destroyRadioButtons
 * Destroys all Radio Buttons in the form
 */
 YAHOO.DHTMLForms.Form.prototype.destroyRadioButtons = function() {
@@ -745,6 +774,7 @@ YAHOO.DHTMLForms.Form.prototype.destroyRadioButtons = function() {
 }
 /**
 * Destroys all Text Inputs in the form
+* @method destroyTextInputs
 */
 YAHOO.DHTMLForms.Form.prototype.destroyTextInputs = function() {
     console.log('Form.destroyTextInputs()');
@@ -754,6 +784,7 @@ YAHOO.DHTMLForms.Form.prototype.destroyTextInputs = function() {
 }
 /**
 * Destroys all Text Inputs (type TEXT) in the form
+* @method destroyTextInputsOnly
 */
 YAHOO.DHTMLForms.Form.prototype.destroyTextInputsOnly = function() {
     console.log('Form.destroysTextInputsOnly()');
@@ -761,6 +792,7 @@ YAHOO.DHTMLForms.Form.prototype.destroyTextInputsOnly = function() {
 }
 /**
 * Destroys all Text Inputs (type TEXTAREA) in the form
+* @method destroyTextAreas
 */
 YAHOO.DHTMLForms.Form.prototype.destroyTextAreas = function() {
     console.log('Form.destroyTextAreas()');
@@ -768,6 +800,7 @@ YAHOO.DHTMLForms.Form.prototype.destroyTextAreas = function() {
 }
 /**
 * Destroys all Text Inputs (type PASSWORD) in the form
+* @method destroyPasswords
 */
 YAHOO.DHTMLForms.Form.prototype.destroyPasswords = function() {
     console.log('Form.destroyPasswords()');
@@ -775,6 +808,7 @@ YAHOO.DHTMLForms.Form.prototype.destroyPasswords = function() {
 }
 /**
 * Get all elements of the form and convert them to DHTML
+* @method getElements
 * @private
 */
 YAHOO.DHTMLForms.Form.prototype.getElements = function() {
@@ -826,6 +860,7 @@ YAHOO.DHTMLForms.Form.prototype.getElements = function() {
         this.config.fields[this.config.fields.length] = newRadioSet;
     }
 }
+
 //REMOVE - NASTY MSIE HOLDER
 if (!console) {
     var console = {
